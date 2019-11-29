@@ -147,7 +147,7 @@ RESPONSE - > {
 - O código poderá ser feito em Java, mas será um diferencial se você realizar ele em Kotlin
 - Testes unitários não são obrigatórios, mas será um diferencial se o projeto conter testes
 - Sugerimos usar algum tipo de arquitetura ( MVVM, MVP, MVI ou qual você achar melhor)
-- Nós da TruckPad estaremos a disposição em caso de dúvidas, então não deixe de nos incomodar
+- Nós da TruckPad estaremos a disposição em caso de dúvidas, então não deixe de nos contactar
 
 Boa sorte
  
