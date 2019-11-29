@@ -141,11 +141,11 @@ RESPONSE - > {
 ## Instruções para a realização do case 
 - Faça um **fork** desse repositório;
 - Crie uma **branch** com o **seu nome**;
-- - Depois que terminar suas implementações, faça um **Pull Request** para o branch **master**;
+- Depois que terminar suas implementações, faça um **Pull Request** para o branch **master**;
 
 ## Recomendações para a realização do case
 - O código poderá ser feito em Java, mas será um diferencial se você realizar ele em Kotlin
-- Testes unitários não são obrigatórios mas, será um diferencial se o projeto conter testes
+- Testes unitários não são obrigatórios, mas será um diferencial se o projeto conter testes
 - Sugerimos usar algum tipo de arquitetura ( MVVM, MVP, MVI ou qual você achar melhor)
 - Nós da TruckPad estaremos a disposição em caso de dúvidas, então não deixe de nos incomodar
 
