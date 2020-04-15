@@ -50,7 +50,7 @@ dependencies {
     implementation libs.koinViewModel
     implementation libs.navigationUi
     implementation libs.navigationFragment
-
+    implementation libs.coroutinesAndroid
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation libs.junit
     androidTestImplementation libs.junitAndroid

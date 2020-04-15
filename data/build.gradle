@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -33,6 +34,8 @@ dependencies {
     implementation libs.retrofit
     implementation libs.retrofitConverterJson
     implementation libs.room
+    implementation libs.coroutinesAndroid
+    kapt libs.roomCompiler
     testImplementation libs.junit
     androidTestImplementation libs.junitAndroid
     androidTestImplementation libs.espresso

@@ -1,4 +1,4 @@
-package br.com.viniciuscoscia.data.entities.pricebycargotype
+package br.com.viniciuscoscia.data.remote.model.pricebycargotype
 
 import com.google.gson.annotations.SerializedName
 

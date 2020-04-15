@@ -4,6 +4,8 @@ apply plugin: 'kotlin'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libs.kotlin
+    implementation libs.koin
+    implementation libs.coroutinesAndroid
 }
 
 sourceCompatibility = "8"

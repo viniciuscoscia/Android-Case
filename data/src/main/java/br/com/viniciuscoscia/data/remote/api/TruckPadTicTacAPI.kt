@@ -1,7 +1,7 @@
-package br.com.viniciuscoscia.data.api
+package br.com.viniciuscoscia.data.remote.api
 
-import br.com.viniciuscoscia.data.entities.pricebycargotype.PriceByCargoTypeRequest
-import br.com.viniciuscoscia.data.entities.pricebycargotype.PriceByCargoTypeResponse
+import br.com.viniciuscoscia.data.remote.model.pricebycargotype.PriceByCargoTypeRequest
+import br.com.viniciuscoscia.data.remote.model.pricebycargotype.PriceByCargoTypeResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 

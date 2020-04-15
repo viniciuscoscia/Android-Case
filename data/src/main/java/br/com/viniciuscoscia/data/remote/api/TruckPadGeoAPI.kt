@@ -1,7 +1,7 @@
-package br.com.viniciuscoscia.data.api
+package br.com.viniciuscoscia.data.remote.api
 
-import br.com.viniciuscoscia.data.entities.route.RouteRequest
-import br.com.viniciuscoscia.data.entities.route.RouteResponse
+import br.com.viniciuscoscia.data.remote.model.route.RouteRequest
+import br.com.viniciuscoscia.data.remote.model.route.RouteResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 

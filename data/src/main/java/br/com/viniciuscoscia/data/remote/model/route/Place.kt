@@ -1,4 +1,4 @@
-package br.com.viniciuscoscia.data.entities.route
+package br.com.viniciuscoscia.data.remote.model.route
 
 
 import com.google.gson.annotations.SerializedName
