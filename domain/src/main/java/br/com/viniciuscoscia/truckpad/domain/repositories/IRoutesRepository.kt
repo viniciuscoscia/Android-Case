@@ -1,6 +1,7 @@
 package br.com.viniciuscoscia.truckpad.domain.repositories
 
 import br.com.viniciuscoscia.truckpad.domain.entities.Coordinate
+import br.com.viniciuscoscia.truckpad.domain.entities.PriceByCargoType
 import br.com.viniciuscoscia.truckpad.domain.entities.RouteCalc
 
 interface IRoutesRepository {
@@ -11,6 +12,6 @@ interface IRoutesRepository {
 
     fun fetchPricesByCargoType(axis: Int,
                                distanceMeters: Float,
-                               hasReturnShipment: Boolean): List<Pair<String, Float>>
+                               hasReturnShipment: Boolean): PriceByCargoType
 
 }
