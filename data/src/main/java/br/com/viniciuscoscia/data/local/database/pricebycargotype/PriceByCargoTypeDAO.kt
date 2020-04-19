@@ -5,7 +5,7 @@ import br.com.viniciuscoscia.data.local.model.PriceByCargoTypeCache
 
 @Dao
 interface PriceByCargoTypeDAO {
-    @Query("SELECT * FROM routes_calc_results")
+    @Query("SELECT * FROM price_by_cargo_type")
     suspend fun getPriceByCargoType(): List<PriceByCargoTypeCache>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -16,4 +16,7 @@ interface PriceByCargoTypeDAO {
 
     @Delete
     suspend fun delete(PriceByCargoType: PriceByCargoTypeCache)
+
+    @Query("SELECT * FROM price_by_cargo_type WHERE id = :id")
+    suspend fun find(id: Int): PriceByCargoTypeCache
 }

@@ -8,7 +8,7 @@ import retrofit2.http.POST
 interface TruckPadTicTacAPI {
 
     @POST(VALUES_BY_TRUCK_CARGO_TYPE_ENDPOINT)
-    fun fetchValuesByTruckCargoType(
+    fun fetchPricesByTruckCargoType(
         @Body priceByCargoTypeRequest: PriceByCargoTypeRequest
     ): PriceByCargoTypeResponse
 

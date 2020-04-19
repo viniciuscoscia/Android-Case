@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import br.com.viniciuscoscia.data.local.model.RoutesCalcCache
+import br.com.viniciuscoscia.data.local.model.PriceByCargoTypeCache
 
-@Database(version = 1, entities = [RoutesCalcCache::class])
+@Database(version = 1, entities = [PriceByCargoTypeCache::class])
 abstract class PriceByCargoTypeDataBase: RoomDatabase() {
 
     abstract fun routeCalcsResultDAO(): PriceByCargoTypeDAO

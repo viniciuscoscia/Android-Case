@@ -1,9 +1,9 @@
 package br.com.viniciuscoscia.truckpad.domain.entities
 
 data class PriceByCargoType (
-        val frigorificada: Float,
-        val geral: Float,
-        val granel: Float,
-        val neogranel: Float,
-        val perigosa: Float
+        val frigorificada: Double,
+        val geral: Double,
+        val granel: Double,
+        val neogranel: Double,
+        val perigosa: Double
 )

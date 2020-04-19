@@ -3,14 +3,14 @@ package br.com.viniciuscoscia.data.local.source
 import br.com.viniciuscoscia.data.local.database.routecalcs.RouteCalcsDAO
 import br.com.viniciuscoscia.data.local.model.RoutesCalcCache
 
-interface RoutesCalcSource {
+interface RoutesCalcDataSourceCache {
     suspend fun getPricesByCargoType(): List<RoutesCalcCache>
     suspend fun insertData(RoutesCalcCache: RoutesCalcCache)
     suspend fun updateData(RoutesCalcCache: RoutesCalcCache)
 }
 
-class RoutesCalcSourceImpl(private val routesCalcDao: RouteCalcsDAO)
-    : RoutesCalcSource {
+class RoutesCalcDataSourceCacheImpl(private val routesCalcDao: RouteCalcsDAO)
+    : RoutesCalcDataSourceCache {
 
     override suspend fun getPricesByCargoType(): List<RoutesCalcCache>
             = routesCalcDao.getAll()

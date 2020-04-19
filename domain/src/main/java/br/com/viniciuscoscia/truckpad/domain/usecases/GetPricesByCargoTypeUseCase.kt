@@ -1,9 +1,9 @@
 package br.com.viniciuscoscia.truckpad.domain.usecases
 
 import br.com.viniciuscoscia.truckpad.domain.entities.PriceByCargoType
-import br.com.viniciuscoscia.truckpad.domain.repositories.IRoutesRepository
+import br.com.viniciuscoscia.truckpad.domain.repositories.ITruckPadRepository
 
-class GetPricesByCargoTypeUseCase(private val repository: IRoutesRepository):
+class GetPricesByCargoTypeUseCase(private val repository: ITruckPadRepository) :
         BaseUseCase<PriceByCargoType, GetPricesByCargoTypeUseCase.Params>() {
 
     override suspend fun execute(params: Params): PriceByCargoType {
@@ -17,6 +17,6 @@ class GetPricesByCargoTypeUseCase(private val repository: IRoutesRepository):
     }
 
     data class Params(val axis: Int,
-                      val distanceMeters: Float,
+                      val distanceMeters: Double,
                       val hasReturnShipment: Boolean)
 }

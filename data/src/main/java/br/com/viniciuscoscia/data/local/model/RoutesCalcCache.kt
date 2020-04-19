@@ -2,7 +2,6 @@ package br.com.viniciuscoscia.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import br.com.viniciuscoscia.truckpad.domain.entities.PriceByCargoType
 
 @Entity(tableName = "routes_calc_results")
 data class RoutesCalcCache(
@@ -12,8 +11,8 @@ data class RoutesCalcCache(
         var placeOfOrigin: String,
         var placeOfDestiny: String,
         var axis: Int,
-        var tolCost: Float,
-        var necessaryFuelLiters: Float,
-        var totalFuelCost: Float,
-        var totalCost: Float
+        var tolCost: Double,
+        var necessaryFuelLiters: Double,
+        var totalFuelCost: Double,
+        var totalCost: Double
 )

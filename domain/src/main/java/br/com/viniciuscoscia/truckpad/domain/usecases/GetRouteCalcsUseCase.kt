@@ -2,10 +2,10 @@ package br.com.viniciuscoscia.truckpad.domain.usecases
 
 import br.com.viniciuscoscia.truckpad.domain.entities.Coordinate
 import br.com.viniciuscoscia.truckpad.domain.entities.RouteCalc
-import br.com.viniciuscoscia.truckpad.domain.repositories.IRoutesRepository
+import br.com.viniciuscoscia.truckpad.domain.repositories.ITruckPadRepository
 
 class GetRouteCalcsUseCase(
-        private val repository: IRoutesRepository
+        private val repository: ITruckPadRepository
 ) : BaseUseCase<RouteCalc, GetRouteCalcsUseCase.Params>() {
 
     override suspend fun execute(params: Params): RouteCalc {
@@ -19,8 +19,8 @@ class GetRouteCalcsUseCase(
     }
 
     data class Params(
-            val fuelConsumptionKilometersPerLiter: Float,
-            val fuelPrice: Float,
+            val fuelConsumptionKilometersPerLiter: Double,
+            val fuelPrice: Double,
             val places: List<Coordinate>
     )
 }

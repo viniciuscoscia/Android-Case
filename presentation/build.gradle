@@ -47,11 +47,13 @@ dependencies {
     implementation libs.lifecycleExtensions
     implementation libs.navigationFragment
     implementation libs.navigationUi
+    implementation libs.koin
     implementation libs.koinViewModel
     implementation libs.navigationUi
     implementation libs.navigationFragment
     implementation libs.coroutinesAndroid
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation libs.googleMaps
+    implementation libs.googlePlaces
     testImplementation libs.junit
     androidTestImplementation libs.junitAndroid
     androidTestImplementation libs.espresso

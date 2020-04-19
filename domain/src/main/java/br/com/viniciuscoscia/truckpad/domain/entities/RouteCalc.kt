@@ -4,9 +4,10 @@ data class RouteCalc(
         val distanceMeters: Int,
         val placeOfOrigin: String,
         val placeOfDestiny: String,
-        val axis: Int,
-        val tolCost: Float,
-        val necessaryFuelLiters: Float,
-        val totalFuelCost: Float,
-        val totalCost: Float
+        val tollCost: Double,
+        val tollCostUnit: String,
+        val necessaryFuel: Double,
+        val necessaryFuelUnity: String,
+        val totalFuelCost: Double,
+        val totalCost: Double
 )

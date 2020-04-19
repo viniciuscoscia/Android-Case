@@ -1,8 +1,17 @@
 package br.com.viniciuscoscia.data.di
 
-import org.koin.dsl.module.module
+import br.com.viniciuscoscia.data.TruckPadRepository
+import br.com.viniciuscoscia.truckpad.domain.repositories.ITruckPadRepository
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
 val repositoryModule = module {
+    factory<ITruckPadRepository> {
+        TruckPadRepository(priceByCargoTypeCache = get(),
+                priceByCargoTypeSourceRemote = get(),
+                routesCalcCache = get(),
+                routesCalcSourceRemote = get())
+    }
 }
 
-val dataModules = listOf(remoteDataSourceModule, repositoryModule, cacheDataModule)
+val dataModules: List<Module> = listOf(remoteDataSourceModule, repositoryModule, cacheDataModule)

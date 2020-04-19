@@ -34,7 +34,9 @@ dependencies {
     implementation libs.retrofit
     implementation libs.retrofitConverterJson
     implementation libs.room
+    implementation libs.roomKtx
     implementation libs.coroutinesAndroid
+    implementation libs.koin
     kapt libs.roomCompiler
     testImplementation libs.junit
     androidTestImplementation libs.junitAndroid
