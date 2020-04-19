@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import br.com.viniciuscoscia.truckpad.R
 import br.com.viniciuscoscia.truckpad.common.textNotBlank
 import br.com.viniciuscoscia.truckpad.common.textToDouble
 import br.com.viniciuscoscia.truckpad.common.textToInt
-import br.com.viniciuscoscia.truckpad.domain.entities.Coordinate
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -33,11 +33,26 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLiveDatas()
+        setupListeners()
+    }
 
+    private fun setupListeners() {
         tilOrigin.setEndIconOnClickListener { viewModel.searchForOriginAddress(etOrigin.text.toString()) }
         tilDestiny.setEndIconOnClickListener { viewModel.searchForDestinyAddress(etDestiny.text.toString()) }
 
-        etAxisNumber.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+        etOrigin.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus.not()) {
+                viewModel.searchForOriginAddress(etOrigin.text.toString())
+            }
+        }
+
+        etDestiny.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus.not()) {
+                viewModel.searchForDestinyAddress(etDestiny.text.toString())
+            }
+        }
+
+        etAxisNumber.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus.not() && etAxisNumber.text.toString().isNotBlank()) {
                 isAxisNumberValid(etAxisNumber.text.toString().toInt())
             }
@@ -45,6 +60,7 @@ class HomeFragment : Fragment() {
 
         btnCalculate.setOnClickListener {
             validateFields()
+            requireView().findNavController()
         }
     }
 
@@ -58,18 +74,15 @@ class HomeFragment : Fragment() {
                 && isDestinyValid(destiny, etDestiny)
                 && etFuelConsumption.textNotBlank()
                 && etFuelPricePerLiter.textNotBlank()) {
-            val originCoordinates = getCoordinate(origin[0])
-            val destinyCoordinates = getCoordinate(destiny[0])
+            val originCoordinates = viewModel.getCoordinate(origin[0])
+            val destinyCoordinates = viewModel.getCoordinate(destiny[0])
 
-            viewModel.searchRoutesAndPrices(etFuelConsumption.textToDouble(),
+            viewModel.searchRoutesAndPrices(etFuelConsumption.textToInt(),
                     etFuelPricePerLiter.textToDouble(),
                     listOf(originCoordinates, destinyCoordinates),
                     axis)
         }
-
     }
-
-    private fun getCoordinate(address: Address) = Coordinate(address.latitude, address.longitude)
 
     private fun isDestinyValid(address: List<Address>, editText: TextInputEditText): Boolean {
         return if (address.isEmpty()) {
@@ -80,14 +93,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun isAxisNumberValid(axis: Int) = if (viewModel.validateAxisQuantity(axis).not()) {
         tilAxisNumber.error = getString(R.string.invalid_axis_number_error)
         false
     } else {
         true
     }
-
 
     private fun setupLiveDatas() {
         viewModel.originValidator.observe(requireActivity(), Observer { placeResult ->

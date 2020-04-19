@@ -3,7 +3,6 @@ package br.com.viniciuscoscia.truckpad.ui.main.fragment.home
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +14,7 @@ import br.com.viniciuscoscia.truckpad.domain.usecases.GetRouteCalcsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.lang.reflect.InvocationTargetException
+import java.text.DecimalFormat
 import java.util.*
 
 class HomeViewModel(private val context: Context,
@@ -36,23 +36,27 @@ class HomeViewModel(private val context: Context,
             return emptyList()
         }
         return runBlocking(Dispatchers.IO) {
-            geoCoder.getFromLocationName(text, 10)
+            geoCoder.getFromLocationName(text, 1)
         }
     }
 
-    fun searchForOriginAddress(text: String) {
-        executeSearch(text, _originValidator)
+    fun searchForOriginAddress(text: String?) {
+        if (text.isNullOrBlank().not()) {
+            executeSearch(text!!, _originValidator)
+        }
     }
 
-    fun searchForDestinyAddress(text: String) {
-        executeSearch(text, _destinyValidator)
+    fun searchForDestinyAddress(text: String?) {
+        if (text.isNullOrBlank().not()) {
+            executeSearch(text!!, _destinyValidator)
+        }
     }
 
-    fun searchRoutesAndPrices(fuelConsumptionKilometersPerLiter: Double,
+    fun searchRoutesAndPrices(fuelConsumptionKilometersPerLiter: Int,
                               fuelPrice: Double,
                               places: List<Coordinate>,
                               axis: Int) {
-        runBlocking {
+        runBlocking(Dispatchers.IO) {
             val routeCalcsParams = GetRouteCalcsUseCase.Params(
                     fuelConsumptionKilometersPerLiter,
                     fuelPrice,
@@ -64,9 +68,7 @@ class HomeViewModel(private val context: Context,
                     axis,
                     routeCalc.distanceMeters.toDouble(),
                     true)
-            val finalResult = getPricesByCargoTypeUseCase.execute(pricesParams)
-
-            Log.d("Batata", finalResult.toString())
+            getPricesByCargoTypeUseCase.execute(pricesParams)
         }
     }
 
@@ -93,9 +95,12 @@ class HomeViewModel(private val context: Context,
         }
     }
 
-    fun validateAxisQuantity(axis: Int) = axis in 2..9
+    fun getCoordinate(address: Address): Coordinate = with(address) {
+        val df = DecimalFormat("#.#####")
+        return Coordinate(df.format(latitude).toFloat(), df.format(longitude).toFloat())
+    }
 
-    fun isDestinyValid(destiny: String) = searchAddresses(destiny).isNotEmpty()
+    fun validateAxisQuantity(axis: Int) = axis in 2..9
 }
 
 data class PlaceResult(val placeState: PlaceState,

@@ -13,6 +13,6 @@ interface TruckPadGeoAPI {
     ): RouteResponse
 
     companion object {
-        private const val ROUTE_ENDPOINT = "/route"
+        private const val ROUTE_ENDPOINT = "route"
     }
 }

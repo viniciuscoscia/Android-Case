@@ -6,9 +6,9 @@ import br.com.viniciuscoscia.truckpad.domain.entities.RouteCalc
 
 interface ITruckPadRepository {
 
-    suspend fun fetchRouteCalcs(fuelConsumptionKilometersPerLiter: Double,
+    suspend fun fetchRouteCalcs(fuelConsumptionKilometersPerLiter: Int,
                                 fuelPrice: Double,
-                        places: List<Coordinate>): RouteCalc
+                                places: List<Coordinate>): RouteCalc
 
     suspend fun fetchPricesByCargoType(axis: Int,
                                        distanceMeters: Double,

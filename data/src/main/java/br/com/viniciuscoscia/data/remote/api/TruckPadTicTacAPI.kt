@@ -8,11 +8,11 @@ import retrofit2.http.POST
 interface TruckPadTicTacAPI {
 
     @POST(VALUES_BY_TRUCK_CARGO_TYPE_ENDPOINT)
-    fun fetchPricesByTruckCargoType(
+    suspend fun fetchPricesByTruckCargoType(
         @Body priceByCargoTypeRequest: PriceByCargoTypeRequest
     ): PriceByCargoTypeResponse
 
     companion object {
-        const val VALUES_BY_TRUCK_CARGO_TYPE_ENDPOINT = "/antt_price/all"
+        const val VALUES_BY_TRUCK_CARGO_TYPE_ENDPOINT = "all"
     }
 }

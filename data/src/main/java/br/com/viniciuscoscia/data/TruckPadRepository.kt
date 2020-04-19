@@ -19,7 +19,7 @@ class TruckPadRepository(
         private val routesCalcCache: RoutesCalcDataSourceCache,
         private val routesCalcSourceRemote: RoutesCalcSourceRemote
 ) : ITruckPadRepository {
-    override suspend fun fetchRouteCalcs(fuelConsumptionKilometersPerLiter: Double,
+    override suspend fun fetchRouteCalcs(fuelConsumptionKilometersPerLiter: Int,
                                          fuelPrice: Double,
                                          places: List<Coordinate>): RouteCalc {
         val routeRequest = RouteRequest(fuelConsumption = fuelConsumptionKilometersPerLiter,

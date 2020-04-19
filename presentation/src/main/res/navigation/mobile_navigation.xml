@@ -9,11 +9,24 @@
         android:id="@+id/navigation_home"
         android:name="br.com.viniciuscoscia.truckpad.ui.main.fragment.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_routeResultsFragment"
+            app:destination="@id/routeResultsFragment">
+            <argument
+                android:name="searchResults"
+                app:argType="br.com.viniciuscoscia.truckpad.domain.entities.SearchResults" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="br.com.viniciuscoscia.truckpad.ui.main.fragment.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/routeResultsFragment"
+        android:name="br.com.viniciuscoscia.truckpad.ui.main.fragment.routeresultsfragment.RouteResultsFragment"
+        android:label="route_results_fragment"
+        tools:layout="@layout/route_results_fragment" />
 </navigation>

@@ -19,6 +19,6 @@ object RouteCalcsMapper {
     )
 
     fun coordinateListToPlaceList(coordinates: List<Coordinate>): List<Place> = coordinates.map {
-        Place(listOf(it.latitude, it.longitude))
+        Place(listOf(it.longitude, it.latitude))
     }
 }

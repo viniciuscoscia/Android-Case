@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Place(
     @SerializedName("point")
-    val point: List<Double> = listOf()
+    val point: List<Float> = listOf()
 )

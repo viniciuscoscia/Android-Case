@@ -9,17 +9,16 @@ class GetRouteCalcsUseCase(
 ) : BaseUseCase<RouteCalc, GetRouteCalcsUseCase.Params>() {
 
     override suspend fun execute(params: Params): RouteCalc {
-        with(params) {
-            return repository.fetchRouteCalcs(
+        return with(params) {
+            repository.fetchRouteCalcs(
                     fuelConsumptionKilometersPerLiter,
                     fuelPrice,
-                    places
-            )
+                    places)
         }
     }
 
     data class Params(
-            val fuelConsumptionKilometersPerLiter: Double,
+            val fuelConsumptionKilometersPerLiter: Int,
             val fuelPrice: Double,
             val places: List<Coordinate>
     )

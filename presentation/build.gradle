@@ -54,6 +54,8 @@ dependencies {
     implementation libs.coroutinesAndroid
     implementation libs.googleMaps
     implementation libs.googlePlaces
+    implementation libs.lifecycleViewModel
+    apply plugin: "androidx.navigation.safeargs.kotlin"
     testImplementation libs.junit
     androidTestImplementation libs.junitAndroid
     androidTestImplementation libs.espresso

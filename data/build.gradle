@@ -37,6 +37,8 @@ dependencies {
     implementation libs.roomKtx
     implementation libs.coroutinesAndroid
     implementation libs.koin
+    implementation libs.okHttp
+    implementation libs.okHttpLoggingInterceptor
     kapt libs.roomCompiler
     testImplementation libs.junit
     androidTestImplementation libs.junitAndroid

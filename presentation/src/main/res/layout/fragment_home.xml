@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_consumption"
             android:imeOptions="actionNext"
-            android:inputType="numberDecimal" />
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -124,6 +124,7 @@
             android:id="@+id/etAxisNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:hint="@string/num_eixos"
             android:imeOptions="actionDone" />
     </com.google.android.material.textfield.TextInputLayout>
