@@ -7,7 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.viniciuscoscia.truckpad.R
-import br.com.viniciuscoscia.truckpad.domain.entities.Coordinate
+import br.com.viniciuscoscia.truckpad.domain.entities.CalcResults
+import br.com.viniciuscoscia.truckpad.domain.entities.Place
 import br.com.viniciuscoscia.truckpad.domain.entities.RouteCalc
 import br.com.viniciuscoscia.truckpad.domain.usecases.GetPricesByCargoTypeUseCase
 import br.com.viniciuscoscia.truckpad.domain.usecases.GetRouteCalcsUseCase
@@ -17,10 +18,11 @@ import java.lang.reflect.InvocationTargetException
 import java.text.DecimalFormat
 import java.util.*
 
-class HomeViewModel(private val context: Context,
-                    private val getRouteCalcsUseCase: GetRouteCalcsUseCase,
-                    private val getPricesByCargoTypeUseCase: GetPricesByCargoTypeUseCase)
-    : ViewModel() {
+class HomeViewModel(
+    private val context: Context,
+    private val getRouteCalcsUseCase: GetRouteCalcsUseCase,
+    private val getPricesByCargoTypeUseCase: GetPricesByCargoTypeUseCase
+) : ViewModel() {
 
     private val geoCoder = Geocoder(context, Locale("pt", "BR"))
 
@@ -52,22 +54,32 @@ class HomeViewModel(private val context: Context,
         }
     }
 
-    fun searchRoutesAndPrices(fuelConsumptionKilometersPerLiter: Int,
-                              fuelPrice: Double,
-                              places: List<Coordinate>,
-                              axis: Int) {
-        runBlocking(Dispatchers.IO) {
+    fun searchRoutesAndPrices(
+        fuelConsumptionKilometersPerLiter: Int,
+        fuelPrice: Double,
+        origin: Address,
+        destiny: Address,
+        axis: Int
+    ): CalcResults {
+        return runBlocking(Dispatchers.IO) {
+            val originCoordinate = getPlace(origin)
+            val destinyCoordinate = getPlace(destiny)
+
             val routeCalcsParams = GetRouteCalcsUseCase.Params(
-                    fuelConsumptionKilometersPerLiter,
-                    fuelPrice,
-                    places
+                fuelConsumptionKilometersPerLiter,
+                fuelPrice,
+                listOf(originCoordinate, destinyCoordinate)
             )
             val routeCalc: RouteCalc = getRouteCalcsUseCase.execute(routeCalcsParams)
 
             val pricesParams = GetPricesByCargoTypeUseCase.Params(
-                    axis,
-                    routeCalc.distanceMeters.toDouble(),
-                    true)
+                axis,
+                routeCalc,
+                true,
+                fuelPrice,
+                originCoordinate,
+                destinyCoordinate
+            )
             getPricesByCargoTypeUseCase.execute(pricesParams)
         }
     }
@@ -78,35 +90,41 @@ class HomeViewModel(private val context: Context,
 
             placeResultLiveData.value = when (addresses.size) {
                 1 -> PlaceResult(
-                        placeState = PlaceState.ONE_RESULT_FOUND,
-                        address = addresses[0]
+                    placeState = PlaceState.ONE_RESULT_FOUND,
+                    address = addresses[0]
                 )
 
                 else -> PlaceResult(
-                        placeState = PlaceState.NO_RESULT,
-                        errorMessage = context.getString(R.string.place_not_found)
+                    placeState = PlaceState.NO_RESULT,
+                    errorMessage = context.getString(R.string.place_not_found)
                 )
             }
         } catch (e: InvocationTargetException) {
             placeResultLiveData.value = PlaceResult(
-                    placeState = PlaceState.ERROR,
-                    errorMessage = context.getString(R.string.internal_search_error)
+                placeState = PlaceState.ERROR,
+                errorMessage = context.getString(R.string.internal_search_error)
             )
         }
     }
 
-    fun getCoordinate(address: Address): Coordinate = with(address) {
+    private fun getPlace(address: Address): Place = with(address) {
         val df = DecimalFormat("#.#####")
-        return Coordinate(df.format(latitude).toFloat(), df.format(longitude).toFloat())
+        return Place(
+            address.getAddressLine(0),
+            df.format(latitude).toFloat(),
+            df.format(longitude).toFloat()
+        )
     }
 
     fun validateAxisQuantity(axis: Int) = axis in 2..9
 }
 
-data class PlaceResult(val placeState: PlaceState,
-                       val address: Address? = null,
-                       val errorMessage: String = "",
-                       val places: List<String> = listOf())
+data class PlaceResult(
+    val placeState: PlaceState,
+    val address: Address? = null,
+    val errorMessage: String = "",
+    val places: List<String> = listOf()
+)
 
 enum class PlaceState {
     ONE_RESULT_FOUND, NO_RESULT, ERROR

@@ -13,20 +13,27 @@
         <action
             android:id="@+id/action_navigation_home_to_routeResultsFragment"
             app:destination="@id/routeResultsFragment">
-            <argument
-                android:name="searchResults"
-                app:argType="br.com.viniciuscoscia.truckpad.domain.entities.SearchResults" />
         </action>
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="br.com.viniciuscoscia.truckpad.ui.main.fragment.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_routes_history"
+        android:name="br.com.viniciuscoscia.truckpad.ui.main.fragment.routeshistory.RoutesHistoryFragment"
+        android:label="@string/title_search_history"
+        tools:layout="@layout/fragment_routes_history">
+        <action
+            android:id="@+id/action_navigation_routes_history_to_routeResultsFragment"
+            app:destination="@id/routeResultsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/routeResultsFragment"
         android:name="br.com.viniciuscoscia.truckpad.ui.main.fragment.routeresultsfragment.RouteResultsFragment"
-        android:label="route_results_fragment"
-        tools:layout="@layout/route_results_fragment" />
+        android:label="@string/results"
+        tools:layout="@layout/route_results_fragment">
+        <argument
+            android:name="CalcResults"
+            app:argType="br.com.viniciuscoscia.truckpad.domain.entities.CalcResults" />
+    </fragment>
+
+
 </navigation>

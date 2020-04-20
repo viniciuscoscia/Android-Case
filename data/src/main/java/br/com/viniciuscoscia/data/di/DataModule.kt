@@ -7,10 +7,11 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     factory<ITruckPadRepository> {
-        TruckPadRepository(priceByCargoTypeCache = get(),
-                priceByCargoTypeSourceRemote = get(),
-                routesCalcCache = get(),
-                routesCalcSourceRemote = get())
+        TruckPadRepository(
+            priceByCargoTypeSourceRemote = get(),
+            routesCalcSourceRemote = get(),
+            searchResultsLocalSource = get()
+        )
     }
 }
 

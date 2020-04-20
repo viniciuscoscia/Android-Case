@@ -1,8 +1,12 @@
-package br.com.viniciuscoscia.truckpad.domain.entities
+package br.com.viniciuscoscia.data.local.model
 
-import java.io.Serializable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class CalcResults(
+@Entity(tableName = "calc_results")
+data class CalcResultsEntity(
+    @PrimaryKey
+    val id: Int? = null,
     val axis: Int,
     val placeOfOriginName: String,
     val placeOfOriginLatitude: Float,
@@ -29,4 +33,4 @@ data class CalcResults(
     val granel: Double,
     val neogranel: Double,
     val perigosa: Double
-) : Serializable
+)
