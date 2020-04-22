@@ -14,9 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import br.com.viniciuscoscia.truckpad.R
+import br.com.viniciuscoscia.truckpad.common.SearchResult
 import br.com.viniciuscoscia.truckpad.common.textNotBlank
 import br.com.viniciuscoscia.truckpad.common.textToDouble
 import br.com.viniciuscoscia.truckpad.common.textToInt
+import br.com.viniciuscoscia.truckpad.entity.PlaceResult
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

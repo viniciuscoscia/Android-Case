@@ -11,11 +11,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.viniciuscoscia.truckpad.R
-import br.com.viniciuscoscia.truckpad.domain.entities.CalcResults
+import br.com.viniciuscoscia.truckpad.common.SearchResult
 import br.com.viniciuscoscia.truckpad.domain.entities.Place
 import br.com.viniciuscoscia.truckpad.domain.entities.RouteCalc
 import br.com.viniciuscoscia.truckpad.domain.usecases.GetPricesByCargoTypeUseCase
 import br.com.viniciuscoscia.truckpad.domain.usecases.GetRouteCalcsUseCase
+import br.com.viniciuscoscia.truckpad.entity.PlaceResult
+import br.com.viniciuscoscia.truckpad.entity.RepoResult
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.*
@@ -173,19 +175,3 @@ class HomeViewModel(
     }
 }
 
-data class PlaceResult(
-    val searchResult: SearchResult,
-    val address: Address? = null,
-    val errorMessage: String = "",
-    val places: List<String> = listOf()
-)
-
-data class RepoResult(
-    val searchResult: SearchResult,
-    val calcResults: CalcResults? = null,
-    val message: String = ""
-)
-
-enum class SearchResult {
-    SUCCESS, NO_RESULT, ERROR
-}
