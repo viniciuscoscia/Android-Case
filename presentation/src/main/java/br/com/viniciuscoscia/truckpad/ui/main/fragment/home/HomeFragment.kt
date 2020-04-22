@@ -1,11 +1,14 @@
 package br.com.viniciuscoscia.truckpad.ui.main.fragment.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.location.Address
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -42,17 +45,15 @@ class HomeFragment : Fragment() {
         val axis = etAxisNumber.textToInt()
 
         if (areFieldsValid(axis, origin, destiny)) {
-            val calcResults = viewModel.searchRoutesAndPrices(
+            viewModel.searchRoutesAndPrices(
                 etFuelConsumption.textToInt(),
                 etFuelPricePerLiter.textToDouble(),
                 origin[0],
                 destiny[0],
                 axis
             )
-
-            val action =
-                HomeFragmentDirections.actionNavigationHomeToRouteResultsFragment(calcResults)
-            requireView().findNavController().navigate(action)
+        } else {
+            btnCalculate.hideLoading()
         }
     }
 
@@ -74,28 +75,49 @@ class HomeFragment : Fragment() {
         }
 
     private fun setupLiveDatas() {
-        viewModel.originValidator.observe(requireActivity(), Observer { placeResult ->
+        viewModel.originValidator.observe(viewLifecycleOwner, Observer { placeResult ->
             dealWithPlaceResult(placeResult, tilOrigin)
         })
 
-        viewModel.destinyValidator.observe(requireActivity(), Observer { placeResult ->
+        viewModel.destinyValidator.observe(viewLifecycleOwner, Observer { placeResult ->
             dealWithPlaceResult(placeResult, tilDestiny)
+        })
+
+        viewModel.calcResults.observe(viewLifecycleOwner, Observer { repoResult ->
+            btnCalculate.hideLoading()
+            when (repoResult.searchResult) {
+                SearchResult.SUCCESS -> {
+                    val action =
+                        HomeFragmentDirections.actionNavigationHomeToRouteResultsFragment(
+                            repoResult
+                                .calcResults!!
+                        )
+                    requireView().findNavController().navigate(action)
+                }
+                else -> {
+                    showToastMessage(repoResult.message)
+                }
+            }
         })
     }
 
     private fun dealWithPlaceResult(placeResult: PlaceResult, textInputLayout: TextInputLayout) {
-        when (placeResult.placeState) {
-            PlaceState.ONE_RESULT_FOUND -> {
+        when (placeResult.searchResult) {
+            SearchResult.SUCCESS -> {
                 textInputLayout.isErrorEnabled = false
                 textInputLayout.editText?.setText(placeResult.address!!.getAddressLine(0))
             }
-            PlaceState.NO_RESULT -> textInputLayout.error = placeResult.errorMessage
-            PlaceState.ERROR -> Toast.makeText(
-                requireContext(),
-                placeResult.errorMessage,
-                Toast.LENGTH_LONG
-            ).show()
+            SearchResult.NO_RESULT -> textInputLayout.error = placeResult.errorMessage
+            SearchResult.ERROR -> showToastMessage(placeResult.errorMessage)
         }
+    }
+
+    private fun showToastMessage(errorMessage: String) {
+        Toast.makeText(
+            requireContext(),
+            errorMessage,
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun areFieldsValid(
@@ -148,7 +170,19 @@ class HomeFragment : Fragment() {
             }
         }
 
+        btnCurrentPlace.setOnClickListener {
+            if (viewModel.hasAccessFineLocationPermission()) {
+                viewModel.getCurrentLocation()
+            } else {
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    PERMISSIONS_REQUEST_CODE
+                )
+            }
+        }
+
         btnCalculate.setOnClickListener {
+            btnCalculate.showLoading()
             executeCalc()
         }
 
@@ -167,5 +201,31 @@ class HomeFragment : Fragment() {
         etFuelConsumption.doOnTextChanged { _, _, _, _ ->
             tilFuelConsumption.isErrorEnabled = false
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode != PERMISSIONS_REQUEST_CODE) {
+            return
+        }
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            viewModel.getCurrentLocation()
+        } else {
+            showToastMessage(getString(R.string.need_to_allow_location))
+        }
+    }
+
+    companion object {
+        const val PERMISSIONS_REQUEST_CODE = 81
     }
 }

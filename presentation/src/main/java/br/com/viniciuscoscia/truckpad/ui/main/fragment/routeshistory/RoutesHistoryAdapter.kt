@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.viniciuscoscia.truckpad.R
+import br.com.viniciuscoscia.truckpad.common.toBrazilianDateTimeFormat
 import br.com.viniciuscoscia.truckpad.domain.entities.CalcResults
+import java.util.*
 
 class RoutesHistoryAdapter(val onClickListener: (CalcResults) -> Unit) :
     RecyclerView.Adapter<RoutesHistoryAdapter.ViewHolder>() {
@@ -40,10 +42,12 @@ class RoutesHistoryAdapter(val onClickListener: (CalcResults) -> Unit) :
 
         private val origin: TextView = itemView.findViewById(R.id.tvOrigin)
         private val destiny: TextView = itemView.findViewById(R.id.tvDestiny)
+        private val dateTime: TextView = itemView.findViewById(R.id.tvDateTime)
 
         fun bind(calcResults: CalcResults) {
             origin.text = calcResults.placeOfOriginName
             destiny.text = calcResults.placeOfDestinyName
+            dateTime.text = Date(calcResults.timeStamp).toBrazilianDateTimeFormat()
         }
 
         override fun onClick(v: View) {

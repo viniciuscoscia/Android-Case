@@ -14,6 +14,7 @@
     <string name="select_a_place">Selecione um local</string>
     <string name="invalid_axis_number_error">Insira uma quantidade entre 2 e 9</string>
     <string name="internal_search_error">Erro ao realizar busca por local, tente novamente</string>
+    <string name="server_error">Erro ao calcular rotas, tente novamente</string>
     <string name="insert_a_destiny">Insira um destino válido</string>
     <string name="lbl_origin">Origem:</string>
     <string name="lbl_destiny">Destino:</string>
@@ -34,4 +35,6 @@
     <string name="insert_a_value">Insira um valor</string>
     <string name="no_calc_history">Não há histórico de cálculos de frete</string>
     <string name="results">Resultados</string>
+    <string name="error_get_current_location">Error ao buscar localização atual, tente novamente</string>
+    <string name="need_to_allow_location">É necessário permissão de localização para utilizar este recurso</string>
 </resources>

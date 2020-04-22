@@ -55,6 +55,7 @@ dependencies {
     implementation libs.googleMaps
     implementation libs.googlePlaces
     implementation libs.lifecycleViewModel
+    implementation libs.loadingButton
     apply plugin: "androidx.navigation.safeargs.kotlin"
     testImplementation libs.junit
     androidTestImplementation libs.junitAndroid

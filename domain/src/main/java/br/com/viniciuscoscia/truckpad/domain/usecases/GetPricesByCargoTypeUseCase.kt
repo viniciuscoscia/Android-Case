@@ -4,6 +4,7 @@ import br.com.viniciuscoscia.truckpad.domain.entities.CalcResults
 import br.com.viniciuscoscia.truckpad.domain.entities.Place
 import br.com.viniciuscoscia.truckpad.domain.entities.RouteCalc
 import br.com.viniciuscoscia.truckpad.domain.repositories.ITruckPadRepository
+import java.util.*
 
 class GetPricesByCargoTypeUseCase(private val repository: ITruckPadRepository) :
     BaseUseCaseWithParams<CalcResults, GetPricesByCargoTypeUseCase.Params>() {
@@ -42,7 +43,8 @@ class GetPricesByCargoTypeUseCase(private val repository: ITruckPadRepository) :
                 prices.geral,
                 prices.granel,
                 prices.neogranel,
-                prices.perigosa
+                prices.perigosa,
+                Date().time
             )
 
             repository.saveCalcResults(calcResults)

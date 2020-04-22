@@ -29,7 +29,7 @@
         android:id="@+id/routeResultsFragment"
         android:name="br.com.viniciuscoscia.truckpad.ui.main.fragment.routeresultsfragment.RouteResultsFragment"
         android:label="@string/results"
-        tools:layout="@layout/route_results_fragment">
+        tools:layout="@layout/fragment_route_results">
         <argument
             android:name="CalcResults"
             app:argType="br.com.viniciuscoscia.truckpad.domain.entities.CalcResults" />

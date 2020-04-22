@@ -5,7 +5,7 @@ import br.com.viniciuscoscia.data.local.model.CalcResultsEntity
 
 @Dao
 interface CalcResultsDAO {
-    @Query("SELECT * FROM calc_results")
+    @Query("SELECT * FROM calc_results ORDER BY id DESC")
     suspend fun getCalcResults(): List<CalcResultsEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

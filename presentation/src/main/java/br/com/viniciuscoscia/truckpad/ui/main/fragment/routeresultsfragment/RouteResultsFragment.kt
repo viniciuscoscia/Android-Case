@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import br.com.viniciuscoscia.truckpad.R
-import kotlinx.android.synthetic.main.route_results_fragment.*
+import kotlinx.android.synthetic.main.fragment_route_results.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RouteResultsFragment : Fragment() {
@@ -18,7 +18,7 @@ class RouteResultsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.route_results_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_route_results, container, false)
     }
 
     @SuppressLint("SetTextI18n")

@@ -32,5 +32,6 @@ data class CalcResultsEntity(
     val geral: Double,
     val granel: Double,
     val neogranel: Double,
-    val perigosa: Double
+    val perigosa: Double,
+    val timeStamp: Long
 )

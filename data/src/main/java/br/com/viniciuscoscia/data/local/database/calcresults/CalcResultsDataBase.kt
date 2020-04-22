@@ -12,9 +12,14 @@ abstract class CalcResultsDataBase : RoomDatabase() {
     abstract fun calcResultsDAO(): CalcResultsDAO
 
     companion object {
+        private const val CALC_RESULTS_DATABASE_FILE_NAME = "calbresults.db"
+
         fun createDataBase(context: Context): CalcResultsDAO {
             return Room
-                .databaseBuilder(context, CalcResultsDataBase::class.java, "searchresults.db")
+                .databaseBuilder(
+                    context, CalcResultsDataBase::class.java,
+                    CALC_RESULTS_DATABASE_FILE_NAME
+                )
                 .build()
                 .calcResultsDAO()
         }

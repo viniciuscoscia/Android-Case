@@ -33,7 +33,8 @@ object CalcResultsMapper {
         geral = searchResultsEntity.geral,
         granel = searchResultsEntity.granel,
         neogranel = searchResultsEntity.neogranel,
-        perigosa = searchResultsEntity.perigosa
+        perigosa = searchResultsEntity.perigosa,
+        timeStamp = searchResultsEntity.timeStamp
     )
 
     fun mapCalcResults(calcResults: List<CalcResults>) =
@@ -65,6 +66,7 @@ object CalcResultsMapper {
         geral = calcResults.geral,
         granel = calcResults.granel,
         neogranel = calcResults.neogranel,
-        perigosa = calcResults.perigosa
+        perigosa = calcResults.perigosa,
+        timeStamp = calcResults.timeStamp
     )
 }
