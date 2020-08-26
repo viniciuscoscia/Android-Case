@@ -19,27 +19,33 @@ class TruckPadRepository(
     private val routesCalcSourceRemote: RoutesCalcSourceRemote,
     private val searchResultsLocalSource: CalcResultsLocalSource
 ) : ITruckPadRepository {
-    override suspend fun fetchRouteCalcs(fuelConsumptionKilometersPerLiter: Int,
-                                         fuelPrice: Double,
-                                         places: List<Place>
+    override suspend fun fetchRouteCalcs(
+        fuelConsumptionKilometersPerLiter: Int,
+        fuelPrice: Double,
+        places: List<Place>
     ): RouteCalc {
-        val routeRequest = RouteRequest(fuelConsumption = fuelConsumptionKilometersPerLiter,
-                fuelPrice = fuelPrice,
+        val routeRequest = RouteRequest(
+            fuelConsumption = fuelConsumptionKilometersPerLiter,
+            fuelPrice = fuelPrice,
             requestPlaces = RouteCalcsMapper.coordinateListToRequestPlaceList(places)
         )
 
         return RouteCalcsMapper.map(routesCalcSourceRemote.fetchRoute(routeRequest))
     }
 
-    override suspend fun fetchPricesByCargoType(axis: Int,
-                                                distanceMeters: Double,
-                                                hasReturnShipment: Boolean): PriceByCargoType {
-        val priceByCargoTypeRequest = PriceByCargoTypeRequest(axis,
-                distanceMeters,
-                hasReturnShipment)
+    override suspend fun fetchPricesByCargoType(
+        axis: Int,
+        distanceMeters: Double,
+        hasReturnShipment: Boolean
+    ): PriceByCargoType {
+        val priceByCargoTypeRequest = PriceByCargoTypeRequest(
+            axis,
+            distanceMeters,
+            hasReturnShipment
+        )
 
         return PriceByCargoTypeMapper
-                .map(priceByCargoTypeSourceRemote.fetchPricesByTruckCargoType(priceByCargoTypeRequest))
+            .map(priceByCargoTypeSourceRemote.fetchPricesByTruckCargoType(priceByCargoTypeRequest))
     }
 
     override suspend fun saveCalcResults(calcResults: CalcResults) {

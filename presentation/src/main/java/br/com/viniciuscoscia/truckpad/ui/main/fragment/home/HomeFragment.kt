@@ -1,14 +1,12 @@
 package br.com.viniciuscoscia.truckpad.ui.main.fragment.home
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.location.Address
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -216,11 +214,7 @@ class HomeFragment : Fragment() {
             return
         }
 
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (viewModel.hasAccessFineLocationPermission()) {
             viewModel.getCurrentLocation()
         } else {
             showToastMessage(getString(R.string.need_to_allow_location))
